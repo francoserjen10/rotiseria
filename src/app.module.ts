@@ -1,19 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoginService } from './services/login/login.service';
-import { DatabaseService } from './common/db.service';
+import { LoginService } from './common/services/login.service';
+import { DatabaseService } from './common/services/db.service';
 import { JwtModule } from '@nestjs/jwt';
-import { LoginController } from './controllers/login.controller';
+import { LoginController } from './common/controllers/login.controller';
+import { JwtMiddlewareGuard } from './common/middleware/jwtGuard.service';
+import { CommonModule } from './common/common.module';
 
 @Module({
-  imports: [
-    JwtModule.register({
-      secret: 'bucoenapbdoacnaocnsaoilchnsaoicsaoicnsaoiclnsaocnsancisbncoajcnsao',
-      signOptions: { expiresIn: '1h' },
-    })
-  ],
-  controllers: [AppController, LoginController],
-  providers: [AppService, LoginService, DatabaseService],
+  imports: [CommonModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule { }
