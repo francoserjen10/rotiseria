@@ -11,19 +11,17 @@ export class JwtMiddlewareGuard implements CanActivate {
 
         // En Reques transformamos la informacion recibida de String a tipo HTTP y la transformamos en un objeto para poder manejar sus atributos y metodos
         const request = context.switchToHttp().getRequest();
-        console.log("jwtmidelguare REQUEST", request)
         // En token guardamos el codigo de autorizacion que se nos envio en la solicitud HTTP del cliente
         const token = this.getTokenEncabezado(request.headers.authorization);
-        console.log("jwtmidelguare TOKEN", token)
         // Si no tenemos un Token, retornamos falso y no permitimos continuar
         if (!token) {
+            //Me daria un error 403 (Forbbiden)
             return false;
         }
 
         try {
             // En caso de recibir un token, lo decodificamos y lo guardamos
             const decodedToken = this.JwtService.decode(token);
-            console.log("decodedToken", decodedToken)
             // Asigno decodedToken a reques.user
             request.user = decodedToken;
             return true;
@@ -34,9 +32,8 @@ export class JwtMiddlewareGuard implements CanActivate {
 
     // Recibo el token de autorizacion desde el cliente o postman (El bearer que ingresamos en postman)
     private getTokenEncabezado(authorization: string): string | null {
-        console.log("getTokenEncabezado", authorization)
         // Evaluo si el token existe o si inicia con 'Bearer ', en caso de que si, retorno el token
-        if (!authorization || !authorization.startsWith('Bearear ')) {
+        if (!authorization || !authorization.startsWith('Bearer')) {
             return null;
         }
         return authorization.split(' ')[1];

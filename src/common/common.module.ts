@@ -14,6 +14,6 @@ import { JwtMiddlewareGuard } from './middleware/jwtGuard.service';
     ],
     controllers: [LoginController],
     providers: [LoginService, DatabaseService, JwtMiddlewareGuard],
-    exports: [DatabaseService, JwtMiddlewareGuard]
+    exports: [DatabaseService, JwtMiddlewareGuard, JwtModule],
 })
 export class CommonModule { }
