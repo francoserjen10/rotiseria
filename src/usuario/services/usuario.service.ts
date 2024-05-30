@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { IUserDTO } from './dto/usuario.dto';
+import { IUserDTO } from '../dto/usuario.dto';
 import { DatabaseService } from 'src/common/services/db.service';
 import { RowDataPacket } from 'mysql2';
-import userQueries from './queries/user.queries';
+import userQueries from '../queries/user.queries';
 
 @Injectable()
 export class UsuarioService {

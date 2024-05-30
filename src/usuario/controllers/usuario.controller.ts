@@ -1,5 +1,5 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { UsuarioService } from './usuario.service';
+import { UsuarioService } from '../services/usuario.service';
 import { JwtMiddlewareGuard } from 'src/common/middleware/jwtGuard.service';
 
 @Controller('/usuarios')
