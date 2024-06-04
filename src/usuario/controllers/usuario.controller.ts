@@ -10,7 +10,11 @@ export class UsuarioController {
 
     @Get('/info')
     async getInformacionUsuario(@Req() request) {
-        return request.user;
+        if(request && request.user) {
+            return request.user;    
+        } else (err){
+            console.error(err)
+        }
     }
 
     @Get()
