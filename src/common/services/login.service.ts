@@ -26,7 +26,7 @@ export class LoginService {
         const hashedPassword = await this.hashPassword(user.password);
         const resultQuery: ResultSetHeader = await this.dbService.executeQuery(
             userQueries.insert,
-            [user.name, user.lastName, user.dni, hashedPassword, user.email, user.rolId]
+            [user.name, user.lastName, user.dni, hashedPassword, user.email, user.rolId ?? 2]
         );
 
         return {
