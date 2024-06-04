@@ -10,10 +10,15 @@ export class UsuarioController {
 
     @Get('/info')
     async getInformacionUsuario(@Req() request) {
-        if(request && request.user) {
-            return request.user;    
-        } else (err){
-            console.error(err)
+        try {
+            if (request && request.user) {
+                return request.user;
+            } else {
+                throw new Error("El usuario no se encontro");
+            }
+        } catch (err) {
+            console.error(err);
+            return { error: "Se produjo un error al obtener la informacion del usuario" };
         }
     }
 
