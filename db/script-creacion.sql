@@ -20,7 +20,6 @@ create table if not exists usuarios(
 );
 
 -- tabla de producto
-drop table producto;
 create table if not exists producto(
 	productoId int not null auto_increment primary key,
 	nombre varchar (200),
@@ -43,8 +42,8 @@ create table if not exists carritoDetalle(
 	carritoId int,
 	productoId int,
 	cantidad int,
-    -- Preguntar a jose como usar el decimal para el dinero
-	precio int is not null,
-	primary key(carritoId),
-	constraint FK_carrito_usuarios foreign key (usuarioId) references usuarios(usuarioId)
+	precio int not null,
+	primary key(carritoDetalleId),
+	constraint FK_carritoDetalle_carrito foreign key (carritoId) references carrito(carritoId),
+	constraint FK_carritoDetalle_producto foreign key (productoId) references producto(productoId)
 );
