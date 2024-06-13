@@ -26,7 +26,7 @@ export class LoginService {
         const hashedPassword = await this.hashPassword(user.password);
         const resultQuery: ResultSetHeader = await this.dbService.executeQuery(
             userQueries.insert,
-            [user.name, user.lastName, user.dni, hashedPassword, user.email, user.rolId ?? 2]
+            [user.name, user.lastName, user.dni, hashedPassword, user.email, user.rolId ?? 2, user.urlImage]
         );
 
         return {
@@ -37,9 +37,9 @@ export class LoginService {
             dni: user.dni,
             email: user.email,
             rolId: user.rolId,
+            urlImage: user.urlImage
         }
     }
-
 
     //Validar los datos del usuario ingresante
     async validateUser(email: string, password: string): Promise<IUserDTO | null> {
@@ -50,12 +50,13 @@ export class LoginService {
 
             if (passwordsCompared) {
                 return {
-                    id: resultQuery[0]['id'],
+                    id: resultQuery[0]['usuario_id'],
                     name: resultQuery[0]['nombre'],
                     lastName: resultQuery[0]['apellido'],
                     dni: resultQuery[0]['dni'],
                     email: resultQuery[0]['email'],
-                    rolId: resultQuery[0]['rolId']
+                    rolId: resultQuery[0]['rolId'],
+                    urlImage: resultQuery[0]['url_image']
                 }
             }
 
