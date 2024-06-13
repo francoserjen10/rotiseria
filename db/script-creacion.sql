@@ -24,8 +24,15 @@ create table if not exists producto(
 	productoId int not null auto_increment primary key,
 	nombre varchar (200),
 	descripcion varchar (400),
-	precio int not null ,
+	precio decimal, (5,2) not null,
 	estado varchar (200)
+);
+
+-- tabla rubro
+create table if not exists rubro(
+	rubro_id int not null auto_increment,
+	nombre varchar(100),
+	primary key (rubro_id)
 );
 
 -- tabla de carrito 
@@ -42,7 +49,7 @@ create table if not exists carritoDetalle(
 	carritoId int,
 	productoId int,
 	cantidad int,
-	precio int not null,
+	precio decimal, (5,2) not null,
 	primary key(carritoDetalleId),
 	constraint FK_carritoDetalle_carrito foreign key (carritoId) references carrito(carritoId),
 	constraint FK_carritoDetalle_producto foreign key (productoId) references producto(productoId)

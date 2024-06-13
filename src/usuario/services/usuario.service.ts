@@ -13,7 +13,7 @@ export class UsuarioService {
         const resultQuery: RowDataPacket[] = await this.dbService.executeSelect(userQueries.selectAll, []);
         const resultUsers = resultQuery.map((rs: RowDataPacket) => {
             return {
-                id: rs['usuarioId'],
+                id: rs['usuario_id'],
                 name: rs['nombre'],
                 lastName: rs['apellido'],
                 dni: rs['dni'],
