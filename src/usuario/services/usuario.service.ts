@@ -20,6 +20,7 @@ export class UsuarioService {
                 password: rs['contrasenia'],
                 email: rs['email'],
                 rolId: rs['rolId'],
+                urlImage: rs['url_image']
             };
         });
         return resultUsers;

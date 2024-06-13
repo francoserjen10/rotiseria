@@ -4,6 +4,8 @@ import { LoginController } from 'src/common/controllers/login.controller';
 import { LoginService } from './services/login.service';
 import { DatabaseService } from './services/db.service';
 import { JwtMiddlewareGuard } from './middleware/jwtGuard.service';
+import { ImageService } from './services/image.service';
+import { ImagesController } from './controllers/images.controller';
 
 @Module({
     imports: [
@@ -12,8 +14,8 @@ import { JwtMiddlewareGuard } from './middleware/jwtGuard.service';
             signOptions: { expiresIn: '1h' },
         }),
     ],
-    controllers: [LoginController],
-    providers: [LoginService, DatabaseService, JwtMiddlewareGuard],
+    controllers: [LoginController, ImagesController],
+    providers: [LoginService, DatabaseService, JwtMiddlewareGuard, ImageService],
     exports: [DatabaseService, JwtMiddlewareGuard, JwtModule],
 })
 export class CommonModule { }

@@ -10,7 +10,6 @@ export class IUserDTO {
 
     @IsString()
     lastName: string;
-    // username: string;
 
     @IsInt()
     dni: number;
@@ -25,4 +24,7 @@ export class IUserDTO {
 
     @IsInt()
     rolId: number;
+
+    @IsString()
+    urlImage: string;
 }
