@@ -36,7 +36,7 @@ export class ImageService {
                     throw new Error("Ocurrio un error con las url de las imagenes");
                 }
 
-                await this.dbService.executeSelect(userQueries.update, [imageUrl, deleteUrl, displayUrl, user.id])
+                await this.dbService.executeSelect(userQueries.updateImageUrl, [imageUrl, deleteUrl, displayUrl, user.id])
             }
 
             return response.data;
