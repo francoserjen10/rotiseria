@@ -76,6 +76,19 @@ INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('bl
 INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('bolognesa ', 'carne picada, cebolla, zanahoria, apio, tomate, ajo, aceite de oliva', 5000, 'disponible', 6);
 INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('champiñones', 'champiñon, cebolla, ajo, leche, crema', 5000, 'disponible', 6);
 
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('mozzarella', 'queso mozzarella, aceitunas sin carozo, orégano y morrón', 9000, 'disponible', 7);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('napolitana ', 'tomate, queso mozzarella y orégano', 11000, 'disponible', 7);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('especial con huevo', 'jamón, queso mozzarella, morrón y huevo', 14000, 'disponible', 7);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('calabresa', 'queso mozzarella, longanisa y aceituna sin carozo', 14000, 'disponible', 7);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('ananá ', 'morrón, jamón cocido, rodajas de ananá y queso mozzarella', 15000, 'disponible', 7);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('rúcula y jamón crudo', 'queso mozzarella, queso parmesano, jamón crudo y rucula', 15000, 'disponible', 7);
+
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('jamón y queso', 'queso mozzarella y jamón cocido', 1400, 'disponible', 8);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('carne', 'carne picada, huevo, morron rojo y verde, aceituna y cebolla', 1400, 'disponible', 8);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('pollo', 'pollo trozado, cebolla, morron rojo y verde y aceituna', 1400, 'disponible', 8);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('humita', 'qchoclo, cebolla, morrón, huevo y queso mozzarella', 1400, 'disponible', 8);
+INSERT INTO producto (nombre, descripcion, precio, estado, rubro_id) VALUES ('roquefort', 'queso mozzarella, queso roquefort, jamón cocido, cebolla y huevo', 1400, 'disponible', 8);
+
 -- rubro
 SELECT * FROM rubro;
 DELETE FROM rubro WHERE rubro_id >= 1;
@@ -87,6 +100,8 @@ INSERT INTO rubro (nombre) VALUES ('carnes');
 INSERT INTO rubro (nombre) VALUES ('guarniciones');
 INSERT INTO rubro (nombre) VALUES ('bebidas');
 INSERT INTO rubro (nombre) VALUES ('salsas');
+INSERT INTO rubro (nombre) values ('pizzas');
+INSERT INTO rubro (nombre) values ('empanadas');
 
 -- carrito 
 SELECT * FROM carrito;
