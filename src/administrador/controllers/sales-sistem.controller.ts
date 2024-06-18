@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { SalesSistemService } from '../services/sales-sistem.service';
 import { IProductDTO } from '../dto/product.dto';
 
@@ -32,5 +32,14 @@ export class SalesSistemController {
             throw new HttpException('Error!!! No se pudo actualizar el producto', HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return productToModify;
+    }
+
+    @Post('/create-product')
+    async createProduct(@Body() body: IProductDTO) {
+        const product = await this.salesSistemService.createProduct(body);
+        if (!product) {
+            throw new HttpException('Ocurrio un error al crear el producto deseado', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return product;
     }
 }

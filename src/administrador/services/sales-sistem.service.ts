@@ -35,4 +35,18 @@ export class SalesSistemService {
         }
         return product;
     }
+
+    async createProduct(product: IProductDTO): Promise<IProductDTO> {
+        const resultQuery: ResultSetHeader = await this.dbService.executeQuery(productQueries.insert,
+            [product.name, product.description, product.price, product.categoryId]
+        );
+
+        return {
+            id: resultQuery.insertId,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            categoryId: product.categoryId
+        }
+    }
 }
