@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { DatabaseService } from 'src/common/services/db.service';
 import productQueries from '../queries/products.queries';
@@ -23,8 +23,16 @@ export class SalesSistemService {
         return resultProducts;
     }
 
-    async deleteProduct(id: number): Promise<any> {
+    async deleteProductById(id: number): Promise<any> {
         const resultQuery: ResultSetHeader = await this.dbService.executeQuery(productQueries.deleteById, [id]);
         return resultQuery;
+    }
+
+    async updateProductById(id: number, product: IProductDTO): Promise<any> {
+        const resultQuery: ResultSetHeader = await this.dbService.executeQuery(productQueries.updateById, [product.name, product.description, product.price, product.categoryId, id]);
+        if (resultQuery.affectedRows === 0) {
+            throw new HttpException('No se pudo actualizar el producto', HttpStatus.NOT_FOUND);
+        }
+        return product;
     }
 }

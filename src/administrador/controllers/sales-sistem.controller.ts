@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Put } from '@nestjs/common';
 import { SalesSistemService } from '../services/sales-sistem.service';
+import { IProductDTO } from '../dto/product.dto';
 
 @Controller('/sales-sistem')
 export class SalesSistemController {
@@ -15,12 +16,21 @@ export class SalesSistemController {
         return products;
     }
 
-    @Delete('/delete-product')
-    async deleteProduct(@Body() body: { id: number }) {
-        const productToEliminate = await this.salesSistemService.deleteProduct(body.id);
+    @Delete(':id')
+    async deleteProduct(@Param('id') id: number) {
+        const productToEliminate = await this.salesSistemService.deleteProductById(id);
         if (!productToEliminate) {
             throw new HttpException('Error!!! No se pudo eliminar el producto', HttpStatus.NOT_FOUND);
         }
         return productToEliminate;
+    }
+
+    @Put(':id')
+    async updateProductById(@Param('id') id: number, @Body() body: IProductDTO) {
+        const productToModify = await this.salesSistemService.updateProductById(id, body);
+        if (!productToModify) {
+            throw new HttpException('Error!!! No se pudo actualizar el producto', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return productToModify;
     }
 }
