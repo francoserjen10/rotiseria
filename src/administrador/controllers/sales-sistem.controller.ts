@@ -1,14 +1,17 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Delete, Get, HttpException, HttpStatus } from '@nestjs/common';
+import { SalesSistemService } from '../services/sales-sistem.service';
 
-@Controller('sales-sistem')
+@Controller('/sales-sistem')
 export class SalesSistemController {
 
-    constructor(
-        //Llamar al servicio de salesSistem
-    ) { }
+    constructor(private salesSistem: SalesSistemService) { }
 
-    //Metodo para llamar al servicio
-    /**
-     * Acceder al servicio de ventas y llamar al metodo que muestra todos los usuarios */
-
+    @Get()
+    async allProducts() {
+        const products = await this.salesSistem.getAllProducts();
+        if (!products) {
+            throw new HttpException('No se pudieron obtener los productos', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return products;
+    }
 }
