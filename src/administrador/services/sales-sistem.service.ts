@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { DatabaseService } from 'src/common/services/db.service';
 import productQueries from '../queries/products.queries';
 import { IProductDTO } from '../dto/product.dto';
@@ -21,5 +21,10 @@ export class SalesSistemService {
             }
         })
         return resultProducts;
+    }
+
+    async deleteProduct(id: number): Promise<any> {
+        const resultQuery: ResultSetHeader = await this.dbService.executeQuery(productQueries.deleteById, [id]);
+        return resultQuery;
     }
 }
