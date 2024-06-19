@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { SalesSistemService } from '../services/sales-sistem.service';
+import { SalesSistemService } from '../services/salesSistem.service';
 import { IProductDTO } from '../dto/product.dto';
 
 @Controller('/sales-sistem')
