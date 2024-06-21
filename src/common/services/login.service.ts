@@ -55,7 +55,7 @@ export class LoginService {
                     lastName: resultQuery[0]['apellido'],
                     dni: resultQuery[0]['dni'],
                     email: resultQuery[0]['email'],
-                    rolId: resultQuery[0]['rolId'],
+                    rolId: resultQuery[0]['rol_id'],
                     urlImage: resultQuery[0]['url_image']
                 }
             }
