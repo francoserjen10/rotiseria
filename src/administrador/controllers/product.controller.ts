@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, 
 import { ProductService } from '../services/product.service';
 import { IProductDTO } from '../dto/product.dto';
 
-@Controller('/sales-sistem')
+@Controller('/product')
 export class ProductController {
 
     constructor(private productService: ProductService) { }
