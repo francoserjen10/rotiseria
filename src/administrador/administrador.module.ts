@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { SalesSistemService } from './services/salesSistem.service';
-import { SalesSistemController } from './controllers/salesSistem.controller';
+import { ProductService } from './services/product.service';
+import { ProductController } from './controllers/product.controller';
 import { CommonModule } from 'src/common/common.module';
 
 @Module({
   imports: [CommonModule],
-  controllers: [SalesSistemController],
-  providers: [SalesSistemService]
+  controllers: [ProductController],
+  providers: [ProductService]
 })
 export class AdministradorModule {}

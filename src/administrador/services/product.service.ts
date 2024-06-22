@@ -5,7 +5,7 @@ import productQueries from '../queries/products.queries';
 import { IProductDTO } from '../dto/product.dto';
 
 @Injectable()
-export class SalesSistemService {
+export class ProductService {
 
     constructor(private dbService: DatabaseService) { }
 
