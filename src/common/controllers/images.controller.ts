@@ -29,6 +29,6 @@ export class ImagesController {
         file: Express.Multer.File
     ) {
         const userData = JSON.parse(request.body.data);
-        return await this.imageService.upload(file, userData);
+        return await this.imageService.uploadImage(file, userData);
     }
 }
