@@ -11,7 +11,7 @@ export class ImageService {
     constructor(private dbService: DatabaseService) { }
 
 
-    async upload(file: Express.Multer.File, user: IUserDTO) {
+    async uploadImage(file: Express.Multer.File, user: IUserDTO) {
         try {
             const formdata: FormData = new FormData();
             //Buffer = arreglo de datos donde se guarda la imagen en base a numeros
@@ -36,7 +36,7 @@ export class ImageService {
                     throw new Error("Ocurrio un error con las url de las imagenes");
                 }
 
-                await this.dbService.executeSelect(userQueries.updateImageUrl, [imageUrl, deleteUrl, displayUrl, user.id])
+                await this.dbService.executeSelect(userQueries.insertImageUrl, [imageUrl, deleteUrl, displayUrl, user.id])
             }
 
             return response.data;
