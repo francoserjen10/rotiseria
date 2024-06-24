@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseFilePipeBuilder, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ProductService } from '../services/product.service';
 import { IProductDTO } from '../dto/product.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('/product')
 export class ProductController {
@@ -41,5 +42,36 @@ export class ProductController {
             throw new HttpException('Ocurrio un error al crear el producto deseado', HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return product;
+    }
+
+    @Post('/upload')
+    @UseInterceptors(FileInterceptor('file'))
+    async uploadImage(@UploadedFile(
+        new ParseFilePipeBuilder()
+            .addFileTypeValidator({
+                fileType: /(jpg|jpeg|png|gif)$/,
+            })
+            .addMaxSizeValidator({
+                maxSize: 1024000,
+                message: 'La imagen no puede superar el 1MB',
+            })
+            /*
+            Este error dice que el servidor entiende el tipo de contenido de la solicitud,
+            la sintaxis tambien es correcta,
+            pero no pudo procesar las instrucciones necesarias
+            */
+            .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY })
+    )
+    file: Express.Multer.File,
+        @Body('data') productData: string
+    ) {
+        try {
+            const product: IProductDTO = JSON.parse(productData);
+
+            return await this.productService.uploadImage(file, product);
+
+        } catch (error) {
+            throw new BadRequestException('Error con la informacion recivida del producto')
+        }
     }
 }
