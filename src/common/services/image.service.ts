@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axiosInstance from 'src/axios/config';
 import { IUserDTO } from 'src/usuario/dto/usuario.dto';
 import { DbService } from './db.service';
-import userQueries from 'src/usuario/queries/user.queries';
+import userQueries from 'src/common/queries/user.queries';
 const key: string = '6e9081ee31bf5d7ef88c15783c3b6bba';
 
 @Injectable()

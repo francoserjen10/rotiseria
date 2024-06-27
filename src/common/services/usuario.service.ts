@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IUserDTO } from 'src/usuario/dto/usuario.dto';
 import { DbService } from './db.service';
 import { RowDataPacket } from 'mysql2';
-import userQueries from 'src/usuario/queries/user.queries';
+import userQueries from 'src/common/queries/user.queries';
 @Injectable()
 export class UsuarioCommonService {
 

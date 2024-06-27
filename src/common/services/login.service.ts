@@ -2,7 +2,7 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { DbService } from './db.service';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import userQueries from '../../usuario/queries/user.queries';
+import userQueries from '../queries/user.queries';
 import { IUserDTO } from 'src/usuario/dto/usuario.dto';
 import * as bcrypt from 'bcryptjs';
 
