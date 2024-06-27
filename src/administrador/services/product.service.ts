@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import { DatabaseService } from 'src/common/services/db.service';
+import { DbService } from 'src/common/services/db.service';
 import productQueries from '../queries/products.queries';
 import { IProductDTO } from '../dto/product.dto';
 import axiosInstance from 'src/axios/config';
@@ -10,7 +10,7 @@ const key: string = '6e9081ee31bf5d7ef88c15783c3b6bba';
 @Injectable()
 export class ProductService {
 
-    constructor(private dbService: DatabaseService) { }
+    constructor(private dbService: DbService) { }
 
     async getAllProducts(): Promise<IProductDTO[]> {
         const resultQuery: RowDataPacket[] = await this.dbService.executeSelect(productQueries.selectAll, []);

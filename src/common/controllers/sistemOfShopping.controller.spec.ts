@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SistemOfShoppingController } from './sistemOfShopping.controller';
 
 describe('SistemOfShoppingController', () => {
-  let controller: SistemOfShoppingController;
+  let controller: SistemOfShoppSistemOfShoppingControlleringController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

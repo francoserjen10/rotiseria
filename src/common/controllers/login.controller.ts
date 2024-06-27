@@ -1,11 +1,12 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, UseGuards } from "@nestjs/common";
-import { IUserDTO } from "src/usuario/dto/usuario.dto";
-import { JwtMiddlewareGuard } from "src/common/middleware/jwtGuard.service";
-import { LoginService } from "src/common/services/login.service";
+import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { LoginService } from '../services/login.service';
+import { IUserDTO } from 'src/usuario/dto/usuario.dto';
+import { JwtMiddlewareGuard } from '../middleware/jwtGuard.service';
 
 @Controller('/access')
 @UseGuards(JwtMiddlewareGuard)
 export class LoginController {
+
     constructor(private loginService: LoginService) { }
 
     @Post('/createUser')

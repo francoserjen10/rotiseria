@@ -1,6 +1,6 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { DatabaseService } from './db.service';
+import { DbService } from './db.service';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import userQueries from '../../usuario/queries/user.queries';
 import { IUserDTO } from 'src/usuario/dto/usuario.dto';
@@ -8,13 +8,12 @@ import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class LoginService {
-
     saltRounds: number = 10;
 
     constructor
         (
             private jwtService: JwtService,
-            private dbService: DatabaseService,
+            private dbService: DbService,
         ) { }
 
     //Generamos hash para la contraseña
