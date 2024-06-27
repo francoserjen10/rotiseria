@@ -1,9 +1,9 @@
-
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import { Pool, createPool, PoolConnection, FieldPacket, ResultSetHeader, RowDataPacket } from 'mysql2/promise'
 
 @Injectable()
-export class DatabaseService {
+
+export class DbService {
     private pool: Pool;
     constructor() {
         this.pool = createPool({

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import axiosInstance from 'src/axios/config';
 import { IUserDTO } from 'src/usuario/dto/usuario.dto';
-import { DatabaseService } from './db.service';
+import { DbService } from './db.service';
 import userQueries from 'src/usuario/queries/user.queries';
 const key: string = '6e9081ee31bf5d7ef88c15783c3b6bba';
 
 @Injectable()
 export class ImageService {
 
-    constructor(private dbService: DatabaseService) { }
+    constructor(private dbService: DbService) { }
 
 
     async uploadImage(file: Express.Multer.File, user: IUserDTO) {
