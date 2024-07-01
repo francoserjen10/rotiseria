@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
 import { LoginService } from '../services/login.service';
 import { IUserDTO } from 'src/usuario/dto/usuario.dto';
 import { JwtMiddlewareGuard } from '../middleware/jwtGuard.service';
@@ -32,4 +32,17 @@ export class LoginController {
         }
     }
 
+    @Get('/info')
+    async getInformacionUsuario(@Req() request) {
+        try {
+            if (request && request.user) {
+                return request.user;
+            } else {
+                throw new Error("El usuario no se encontro");
+            }
+        } catch (err) {
+            console.error(err);
+            return { error: "Se produjo un error al obtener la informacion del usuario" };
+        }
+    }
 }
