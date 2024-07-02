@@ -76,18 +76,22 @@ export class ProductService {
         }
     }
 
-    async createProduct(product: IProductDTO): Promise<IProductDTO> {
+    async createProduct(product: IProductDTO, file: Express.Multer.File): Promise<IProductDTO> {
         const resultQuery: ResultSetHeader = await this.dbService.executeQuery(productQueries.insert,
             [product.name, product.description, product.price, product.categoryId]
         );
 
-        return {
+        const createdProduct = {
             id: resultQuery.insertId,
             name: product.name,
             description: product.description,
             price: product.price,
-            categoryId: product.categoryId,
-            urlImage: product.urlImage
+            categoryId: product.categoryId
         }
+
+        if (file) {
+            await this.uploadImage(file, createdProduct);
+        }
+        return createdProduct;
     }
 }

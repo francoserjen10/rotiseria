@@ -35,16 +35,16 @@ export class ProductController {
         return productToModify;
     }
 
-    @Post('/create-product')
-    async createProduct(@Body() body: IProductDTO) {
-        const product = await this.productService.createProduct(body);
-        if (!product) {
-            throw new HttpException('Ocurrio un error al crear el producto deseado', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return product;
-    }
+    // @Post('/create-product')
+    // async createProduct(@Body() body: IProductDTO) {
+    //     const product = await this.productService.createProduct(body);
+    //     if (!product) {
+    //         throw new HttpException('Ocurrio un error al crear el producto deseado', HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    //     return product;
+    // }
 
-    @Post('/upload')
+    @Post('/create-product')
     @UseInterceptors(FileInterceptor('file'))
     async uploadImage(@UploadedFile(
         new ParseFilePipeBuilder()
@@ -68,7 +68,11 @@ export class ProductController {
         try {
             const product: IProductDTO = JSON.parse(productData);
 
-            return await this.productService.uploadImage(file, product);
+            const createdProduct = await this.productService.createProduct(product, file);
+            if (!createdProduct) {
+                throw new HttpException('Ocurrio un error al crear el producto', HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+            return createdProduct;
 
         } catch (error) {
             throw new BadRequestException('Error con la informacion recivida del producto')

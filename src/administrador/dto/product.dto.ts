@@ -18,5 +18,5 @@ export class IProductDTO {
     categoryId: string;
 
     @IsString()
-    urlImage: string;
+    urlImage?: string;
 }
