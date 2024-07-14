@@ -32,7 +32,6 @@ export class LoginService {
             id: resultQuery.insertId,
             name: user.name,
             lastName: user.lastName,
-            // username: string;
             dni: user.dni,
             email: user.email,
             rolId: user.rolId,
@@ -69,7 +68,7 @@ export class LoginService {
     login(user: IUserDTO) {
         const payload = { id: user.id, name: user.name, lastName: user.lastName, dni: user.dni, email: user.email, rolId: user.rolId };
         return {
-            accessToken: this.jwtService.sign(payload),
+            accessToken: this.jwtService.sign(payload)
         }
     }
 }
