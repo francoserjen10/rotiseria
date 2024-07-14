@@ -1,8 +1,11 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { CarritoService } from '../services/carrito.service';
 import { ICarritoDTO } from '../dto/carritousuario.dto';
+import { JwtMiddlewareGuard } from 'src/common/middleware/jwtGuard.service';
 
 @Controller('usuario-carrito')
+@UseGuards(JwtMiddlewareGuard)
+
 export class CarritoController {
 
     constructor(private carritoService: CarritoService) { }
