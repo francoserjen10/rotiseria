@@ -5,5 +5,5 @@ export class ICarritoDTO {
     id: number;
 
     @IsInt()
-    usuario_id: number;
+    usuarioId: number;
 }
