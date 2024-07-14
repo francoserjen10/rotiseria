@@ -9,7 +9,7 @@ export class DbService {
         this.pool = createPool({
             port: 3306,
             database: 'plataformarotiseria',
-            password: 'baloo206',
+            password: '1234',
             host: 'localhost',
             user: 'root',
             // cantidad maxima de conexiones en el pool
