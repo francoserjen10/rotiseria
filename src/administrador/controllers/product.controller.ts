@@ -67,7 +67,10 @@ export class ProductController {
     ) {
         try {
             const product: IProductDTO = JSON.parse(productData);
-
+            // Necesito pasar el precio que me viene como string a numero 
+            const priceInNumber: number = +product.price
+            product.price = priceInNumber;
+            
             const createdProduct = await this.productService.createProduct(product, file);
             if (!createdProduct) {
                 throw new HttpException('Ocurrio un error al crear el producto', HttpStatus.INTERNAL_SERVER_ERROR)
