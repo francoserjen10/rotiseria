@@ -27,26 +27,46 @@ export class ProductController {
     }
 
     @Put(':id')
-    async updateProductById(@Param('id') id: number, @Body() body: IProductDTO) {
-        const productToModify = await this.productService.updateProductById(id, body);
-        if (!productToModify) {
-            throw new HttpException('Error!!! No se pudo actualizar el producto', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return productToModify;
-    }
+    @UseInterceptors(FileInterceptor('file'))
+    async updateProductById(
+        @Param('id') id: string,
+        @UploadedFile(
+            new ParseFilePipeBuilder()
+                .addFileTypeValidator({
+                    fileType: /(jpg|jpeg|png|gif)$/,
+                })
+                .addMaxSizeValidator({
+                    maxSize: 1024000,
+                    message: 'La imagen no puede superar el 1MB',
+                })
+                .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY })
+        )
+        file: Express.Multer.File,
+        @Body('data') productData: string
+    ) {
+        try {
+            const product: IProductDTO = JSON.parse(productData);
+            // Necesito pasar el precio que me viene como string a numero 
+            const priceInNumber: number = +product.price;
+            const idNumber: number = +product.id;
 
-    // @Post('/create-product')
-    // async createProduct(@Body() body: IProductDTO) {
-    //     const product = await this.productService.createProduct(body);
-    //     if (!product) {
-    //         throw new HttpException('Ocurrio un error al crear el producto deseado', HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    //     return product;
-    // }
+            product.id = idNumber;
+            product.price = priceInNumber;
+
+            const updateProduct = await this.productService.updateProductWithImage(idNumber, product, file);
+            if (!updateProduct) {
+                throw new HttpException('Hay un error!!! No se pudo actualizar el producto', HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+            return updateProduct;
+
+        } catch (error) {
+            throw new BadRequestException('Error con la informacion recivida del producto')
+        }
+    }
 
     @Post('/create-product')
     @UseInterceptors(FileInterceptor('file'))
-    async uploadImage(@UploadedFile(
+    async createProductWithImage(@UploadedFile(
         new ParseFilePipeBuilder()
             .addFileTypeValidator({
                 fileType: /(jpg|jpeg|png|gif)$/,
@@ -70,7 +90,7 @@ export class ProductController {
             // Necesito pasar el precio que me viene como string a numero 
             const priceInNumber: number = +product.price
             product.price = priceInNumber;
-            
+
             const createdProduct = await this.productService.createProduct(product, file);
             if (!createdProduct) {
                 throw new HttpException('Ocurrio un error al crear el producto', HttpStatus.INTERNAL_SERVER_ERROR)
