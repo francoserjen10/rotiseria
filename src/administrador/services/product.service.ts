@@ -76,6 +76,13 @@ export class ProductService {
         }
     }
 
+    async updateProductWithImage(id: number, product: IProductDTO, file: Express.Multer.File): Promise<IProductDTO> {
+        if (file) {
+            await this.uploadImage(file, product);
+        }
+        return this.updateProductById(id, product);
+    }
+
     async createProduct(product: IProductDTO, file: Express.Multer.File): Promise<IProductDTO> {
         const resultQuery: ResultSetHeader = await this.dbService.executeQuery(productQueries.insert,
             [product.name, product.description, product.price, product.categoryId]
