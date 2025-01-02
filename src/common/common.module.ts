@@ -8,12 +8,20 @@ import { DbService } from './services/db.service';
 import { UsuarioCommonService } from './services/usuario.service';
 import { UsuarioCommonController } from './controllers/usuario.controller';
 import { LoginService } from './services/login.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
     imports: [
-        JwtModule.register({
-            secret: 'bucoenapbdoacnaocnsaoilchnsaoicsaoicnsaoiclnsaocnsancisbncoajcnsao',
-            signOptions: { expiresIn: '1h' },
+        ConfigModule.forRoot({
+            isGlobal: true,
+        }),
+        JwtModule.registerAsync({
+            imports: [ConfigModule],
+            useFactory: async (configService: ConfigService) => ({
+                secret: configService.get<string>('JWT_SECRET'),
+                signOptions: { expiresIn: '1h' },
+            }),
+            inject: [ConfigService],
         }),
     ],
     controllers: [LoginController, ImagesController, UsuarioCommonController],
