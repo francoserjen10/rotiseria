@@ -1,17 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Pool, createPool, PoolConnection, FieldPacket, ResultSetHeader, RowDataPacket } from 'mysql2/promise'
 
 @Injectable()
 
 export class DbService {
     private pool: Pool;
-    constructor() {
+    constructor(private configService: ConfigService) {
         this.pool = createPool({
-            port: 3306,
-            database: 'plataformarotiseria',
-            password: '1234',
-            host: 'localhost',
-            user: 'root',
+            port: this.configService.get<number>('DB_PORT'),
+            database: this.configService.get<string>('MYSQL_DATABASE'),
+            password: this.configService.get<string>('DB_PASSWORD'),
+            host: this.configService.get<string>('DB_HOST'),
+            user: this.configService.get<string>('DB_USER'),
             // cantidad maxima de conexiones en el pool
             connectionLimit: 10,
         });

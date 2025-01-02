@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from "axios";
+import { ConfigService } from "@nestjs/config";
 
-const baseURL = 'https://api.imgbb.com/1';
-
+const configService = new ConfigService;
+const baseURL = configService.get<string>('IMG_BASE_URL');
 const axiosInstance: AxiosInstance = axios.create({
     baseURL,
     headers: {
